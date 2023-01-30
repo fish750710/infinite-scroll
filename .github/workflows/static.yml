@@ -1,7 +1,7 @@
 name: build
-on:
-  push:
-    branches:
+on: 
+  push: 
+    branches: 
       - master # 这里表示push到main分支就会触发流程
 jobs:
   build-and-deploy:
@@ -17,15 +17,15 @@ jobs:
         run: |
           #cd my-resumes
           npm install
-          npm run build
-
+          npm run build 
+  
       # 连接到ssh，并且做一个拷贝操作的action
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v4
         #env:
-        #WELCOME: "ssh scp ssh pipelines"
-        #LASTSSH: "Doing something after copying"
+          #WELCOME: "ssh scp ssh pipelines"
+          #LASTSSH: "Doing something after copying"
         with:
-          #ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} # Settings > Secret 建立的 ACCESS_TOKEN，推同個 repo 的話可以不需要
+         #ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} # Settings > Secret 建立的 ACCESS_TOKEN，推同個 repo 的話可以不需要
           BRANCH: gh-pages # deploy 到 gh-pages 這個分支
           FOLDER: dist # build 後的資料夾
