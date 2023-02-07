@@ -4,7 +4,7 @@
     <div class="content" @scroll="handleScroll">
       <h1>franklion repo list: </h1>
       <ul>
-        <li v-for="(item) in reposData" :key="item.id">
+        <li v-for="(item) in reposData" :key="item.id" ref="liRef">
           <title>{{ item.name }}</title>
           <div class="description">{{ item.description }}</div>
           <a :href="item.html_url" class="url" target="_blank">{{ item.html_url }}</a>
@@ -15,7 +15,12 @@
 </template>
 
 <script>
-import { reactive, toRefs, onMounted } from 'vue';
+import {
+  ref,
+  reactive,
+  toRefs,
+  onMounted,
+} from 'vue';
 import api from './api';
 
 export default ({
@@ -36,16 +41,18 @@ export default ({
       });
     };
     const observer = new IntersectionObserver(callback);
+    const liRef = ref(null);
     const handleScroll = () => {
-      const Lis = document.querySelector('.content').querySelectorAll('li');
-      if (Lis.length === 0) return;
-      const Lis1 = Lis[Lis.length - 1];
-      observer.observe(Lis1);
+      const Lis2 = liRef.value[liRef.value.length - 1];
+      // const Lis = document.querySelector('.content').querySelectorAll('li');
+      // if (Lis.length === 0) return;
+      // const Lis1 = Lis[Lis.length - 1];
+      observer.observe(Lis2);
     };
     onMounted(() => {
       getRepoData();
     });
-    return { ...toRefs(state), handleScroll };
+    return { ...toRefs(state), handleScroll, liRef };
   },
 });
 </script>
