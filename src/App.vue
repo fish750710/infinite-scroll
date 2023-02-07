@@ -21,18 +21,17 @@ import api from './api';
 export default ({
   setup() {
     const state = reactive({
-      repos: [],
+      p: 1,
       reposData: [],
     });
-    const getRepoData = async () => {
-      const { data } = await api.getRepo();
-      state.repos = data;
-      state.reposData = state.repos.splice(0, 6);
+    const getRepoData = async (p) => {
+      const { data } = await api.getRepo(p);
+      state.reposData.push(...data);
     };
     const callback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          state.reposData.push(...state.repos.splice(0, 6));
+          getRepoData(state.p += 1);
         }
       });
     };

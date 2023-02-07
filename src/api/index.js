@@ -4,7 +4,7 @@ const apiRequest = axios.create({
   baseURL: 'https://api.github.com',
 });
 export default {
-  getRepo() {
-    return apiRequest.get('/users/vuejs/repos');
+  getRepo(p = 1) {
+    return apiRequest.get(`/users/vuejs/repos?per_page=6&page=${p}`);
   },
 };
